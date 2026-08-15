@@ -54,6 +54,24 @@ function deleteTask(taskId) {
     return true;
 }
 
+function updateTask(taskId, updates = {}) {
+    const task = findTaskById(taskId);
+
+    if (!task) {
+        return null;
+    }
+
+    if (typeof updates.title === "string") {
+        task.title = updates.title.trim();
+    }
+
+    if (typeof updates.deadline === "string") {
+        task.deadline = updates.deadline;
+    }
+
+    return task;
+}
+
 window.TaskEngine = {
     TASK_STATUS,
     createTask,
@@ -61,5 +79,6 @@ window.TaskEngine = {
     setTasks,
     findTaskById,
     addTask,
-    deleteTask
+    deleteTask,
+    updateTask
 };
