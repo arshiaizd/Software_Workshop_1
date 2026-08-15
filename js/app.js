@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
         statusFilter: document.getElementById("status-filter"),
         deadlineSort: document.getElementById("deadline-sort"),
         taskList: document.getElementById("task-list"),
-        emptyState: document.getElementById("empty-state")
+        emptyState: document.getElementById("empty-state"),
+        taskTemplate: document.getElementById("task-card-template")
     };
 
     if (!engine || !elements.form || !elements.title || !elements.deadline
@@ -52,6 +53,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function createTaskElement(task) {
+        if (elements.taskTemplate) {
+            const item = elements.taskTemplate.content.firstElementChild.cloneNode(true);
+            const title = item.querySelector(".task-card__title");
+            const deadline = item.querySelector("[data-task-deadline]");
+            const status = item.querySelector("[data-task-status]");
+            const isCompleted = task.status === engine.TASK_STATUS.COMPLETED;
+
+            item.dataset.taskId = task.id;
+            item.classList.toggle("task-card--pending", !isCompleted);
+            item.classList.toggle("task-card--completed", isCompleted);
+            title.textContent = task.title;
+            deadline.textContent = task.deadline || "No deadline";
+            status.textContent = isCompleted ? "Completed" : "Pending";
+
+            item.querySelectorAll("button[data-action]").forEach((button) => {
+                button.dataset.taskId = task.id;
+
+                if (button.dataset.action === "toggle") {
+                    button.textContent = isCompleted ? "Mark pending" : "Mark complete";
+                }
+            });
+
+            return item;
+        }
+
         const item = document.createElement("li");
         const title = document.createElement("h3");
         const details = document.createElement("p");
