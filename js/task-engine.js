@@ -81,6 +81,33 @@ function filterTasks(status = "all") {
     return state.tasks.filter((task) => task.status === status);
 }
 
+function sortTasksByDeadline(tasks) {
+    if (!Array.isArray(tasks)) {
+        return [];
+    }
+
+    return [...tasks].sort((firstTask, secondTask) => {
+        const firstDeadline = Date.parse(firstTask.deadline);
+        const secondDeadline = Date.parse(secondTask.deadline);
+        const firstHasValidDeadline = !Number.isNaN(firstDeadline);
+        const secondHasValidDeadline = !Number.isNaN(secondDeadline);
+
+        if (firstHasValidDeadline && secondHasValidDeadline) {
+            return firstDeadline - secondDeadline;
+        }
+
+        if (firstHasValidDeadline) {
+            return -1;
+        }
+
+        if (secondHasValidDeadline) {
+            return 1;
+        }
+
+        return 0;
+    });
+}
+
 function validateTaskInput(title, deadline = "") {
     const normalizedTitle = typeof title === "string" ? title.trim() : "";
     const normalizedDeadline = typeof deadline === "string" ? deadline.trim() : "";
@@ -169,6 +196,7 @@ window.TaskEngine = {
     restoreTaskState,
     searchTasks,
     filterTasks,
+    sortTasksByDeadline,
     validateTaskInput,
     addTask,
     deleteTask,
