@@ -3,6 +3,10 @@ const TASK_STATUS = {
     COMPLETED: "completed"
 };
 
+const state = {
+    tasks: []
+};
+
 function generateTaskId() {
     if (typeof crypto !== "undefined" && crypto.randomUUID) {
         return crypto.randomUUID();
@@ -21,7 +25,22 @@ function createTask(title, deadline = "") {
     };
 }
 
+function getTasks() {
+    return [...state.tasks];
+}
+
+function setTasks(tasks) {
+    state.tasks = Array.isArray(tasks) ? [...tasks] : [];
+}
+
+function findTaskById(taskId) {
+    return state.tasks.find((task) => task.id === taskId);
+}
+
 window.TaskEngine = {
     TASK_STATUS,
-    createTask
+    createTask,
+    getTasks,
+    setTasks,
+    findTaskById
 };
