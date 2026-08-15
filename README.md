@@ -207,7 +207,9 @@ python -m http.server 8000
 
 انتشار پروژه با GitHub Actions و workflow فایل `.github/workflows/pages.yml` انجام می‌شود. workflow روی push به `main` و اجرای دستی فعال است، artifact استاتیک ریشهٔ مخزن را بارگذاری می‌کند و از environment رسمی `github-pages` استفاده می‌کند.
 
-آدرس زنده فقط پس از نخستین deployment موفق و تأیید پاسخ GitHub Pages در این بخش ثبت می‌شود.
+نسخهٔ زنده پس از موفقیت workflow و دریافت پاسخ HTTP 200 تأیید شد:
+
+**[https://arshiaizd.github.io/Software_Workshop_1/](https://arshiaizd.github.io/Software_Workshop_1/)**
 
 ## استفاده از هوش مصنوعی
 
