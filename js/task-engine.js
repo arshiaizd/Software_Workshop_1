@@ -37,10 +37,29 @@ function findTaskById(taskId) {
     return state.tasks.find((task) => task.id === taskId);
 }
 
+function addTask(title, deadline = "") {
+    const task = createTask(title, deadline);
+    state.tasks.push(task);
+    return task;
+}
+
+function deleteTask(taskId) {
+    const taskIndex = state.tasks.findIndex((task) => task.id === taskId);
+
+    if (taskIndex === -1) {
+        return false;
+    }
+
+    state.tasks.splice(taskIndex, 1);
+    return true;
+}
+
 window.TaskEngine = {
     TASK_STATUS,
     createTask,
     getTasks,
     setTasks,
-    findTaskById
+    findTaskById,
+    addTask,
+    deleteTask
 };
