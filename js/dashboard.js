@@ -21,12 +21,36 @@ function setTextContent(elementId, value) {
     }
 }
 
+function calculateCompletionPercentage(statistics) {
+    if (!statistics || statistics.total <= 0) {
+        return 0;
+    }
+
+    const percentage = Math.round((statistics.completed / statistics.total) * 100);
+    return Math.min(100, Math.max(0, percentage));
+}
+
+function updateCompletionProgress(statistics) {
+    const percentage = calculateCompletionPercentage(statistics);
+    const progress = document.getElementById("task-progress");
+
+    if (progress) {
+        progress.max = 100;
+        progress.value = percentage;
+        progress.textContent = `${percentage}%`;
+    }
+
+    setTextContent("progress-percentage", `${percentage}%`);
+    return percentage;
+}
+
 function updateTaskStatistics(tasks = []) {
     const statistics = calculateTaskStatistics(tasks);
 
     setTextContent("stats-total", statistics.total);
     setTextContent("stats-pending", statistics.pending);
     setTextContent("stats-completed", statistics.completed);
+    updateCompletionProgress(statistics);
 
     const emptyState = document.getElementById("empty-state");
 
@@ -39,6 +63,8 @@ function updateTaskStatistics(tasks = []) {
 
 window.TaskDashboard = {
     calculateTaskStatistics,
+    calculateCompletionPercentage,
+    updateCompletionProgress,
     updateTaskStatistics
 };
 
