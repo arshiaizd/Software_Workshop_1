@@ -72,6 +72,20 @@ function updateTask(taskId, updates = {}) {
     return task;
 }
 
+function toggleTaskStatus(taskId) {
+    const task = findTaskById(taskId);
+
+    if (!task) {
+        return null;
+    }
+
+    task.status = task.status === TASK_STATUS.COMPLETED
+        ? TASK_STATUS.PENDING
+        : TASK_STATUS.COMPLETED;
+
+    return task;
+}
+
 window.TaskEngine = {
     TASK_STATUS,
     createTask,
@@ -80,5 +94,6 @@ window.TaskEngine = {
     findTaskById,
     addTask,
     deleteTask,
-    updateTask
+    updateTask,
+    toggleTaskStatus
 };
