@@ -37,6 +37,23 @@ function findTaskById(taskId) {
     return state.tasks.find((task) => task.id === taskId);
 }
 
+function saveTaskState() {
+    if (!window.TaskStorage) {
+        return false;
+    }
+
+    return window.TaskStorage.saveTasks(getTasks());
+}
+
+function restoreTaskState() {
+    const storedTasks = window.TaskStorage
+        ? window.TaskStorage.loadTasks()
+        : [];
+
+    setTasks(storedTasks);
+    return getTasks();
+}
+
 function validateTaskInput(title, deadline = "") {
     const normalizedTitle = typeof title === "string" ? title.trim() : "";
     const normalizedDeadline = typeof deadline === "string" ? deadline.trim() : "";
@@ -121,6 +138,8 @@ window.TaskEngine = {
     getTasks,
     setTasks,
     findTaskById,
+    saveTaskState,
+    restoreTaskState,
     validateTaskInput,
     addTask,
     deleteTask,
