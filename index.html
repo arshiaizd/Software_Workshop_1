@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Task Planner Dashboard</title>
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header__content">
+            <p class="site-header__eyebrow">Study Task Planner</p>
+            <h1>Task Dashboard</h1>
+            <p>See your workload and study progress at a glance.</p>
+        </div>
+    </header>
+
+    <main class="dashboard-layout">
+        <section class="dashboard" aria-labelledby="dashboard-heading">
+            <header class="section-heading">
+                <h2 id="dashboard-heading">Task overview</h2>
+                <p>A summary of the tasks currently in your study plan.</p>
+            </header>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <h3>Total tasks</h3>
+                    <p class="stat-card__value" id="stats-total">0</p>
+                </article>
+
+                <article class="stat-card stat-card--pending">
+                    <h3>Pending</h3>
+                    <p class="stat-card__value" id="stats-pending">0</p>
+                </article>
+
+                <article class="stat-card stat-card--completed">
+                    <h3>Completed</h3>
+                    <p class="stat-card__value" id="stats-completed">0</p>
+                </article>
+            </div>
+
+            <section class="progress-card" aria-labelledby="progress-heading">
+                <div class="progress-card__heading">
+                    <div>
+                        <h3 id="progress-heading">Completion progress</h3>
+                        <p>Completed tasks as a percentage of your plan.</p>
+                    </div>
+                    <output id="progress-percentage" for="task-progress">0%</output>
+                </div>
+                <progress id="task-progress" value="0" max="100">0%</progress>
+            </section>
+        </section>
+
+        <section class="empty-state" id="empty-state" aria-labelledby="empty-state-heading">
+            <h2 id="empty-state-heading">No tasks to summarize yet</h2>
+            <p>Add study tasks after this dashboard is integrated with the task manager.</p>
+        </section>
+    </main>
+
+    <script src="js/dashboard.js" defer></script>
+</body>
+</html>
