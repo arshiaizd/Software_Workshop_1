@@ -54,6 +54,33 @@ function restoreTaskState() {
     return getTasks();
 }
 
+function searchTasks(query) {
+    const normalizedQuery = typeof query === "string"
+        ? query.trim().toLowerCase()
+        : "";
+
+    if (!normalizedQuery) {
+        return getTasks();
+    }
+
+    return state.tasks.filter((task) =>
+        typeof task.title === "string"
+        && task.title.toLowerCase().includes(normalizedQuery)
+    );
+}
+
+function filterTasks(status = "all") {
+    if (status === "all") {
+        return getTasks();
+    }
+
+    if (status !== TASK_STATUS.PENDING && status !== TASK_STATUS.COMPLETED) {
+        return [];
+    }
+
+    return state.tasks.filter((task) => task.status === status);
+}
+
 function validateTaskInput(title, deadline = "") {
     const normalizedTitle = typeof title === "string" ? title.trim() : "";
     const normalizedDeadline = typeof deadline === "string" ? deadline.trim() : "";
@@ -140,6 +167,8 @@ window.TaskEngine = {
     findTaskById,
     saveTaskState,
     restoreTaskState,
+    searchTasks,
+    filterTasks,
     validateTaskInput,
     addTask,
     deleteTask,
