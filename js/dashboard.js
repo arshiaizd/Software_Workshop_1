@@ -3,6 +3,8 @@ const DASHBOARD_TASK_STATUS = {
     COMPLETED: "completed"
 };
 
+const THEME_STORAGE_KEY = "study-task-planner.theme";
+
 function calculateTaskStatistics(tasks = []) {
     const safeTasks = Array.isArray(tasks) ? tasks : [];
 
@@ -76,10 +78,32 @@ function setTheme(theme) {
     return selectedTheme;
 }
 
+function loadThemePreference() {
+    try {
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        return savedTheme === "dark" || savedTheme === "light" ? savedTheme : "light";
+    } catch (error) {
+        return "light";
+    }
+}
+
+function saveThemePreference(theme) {
+    if (theme !== "dark" && theme !== "light") {
+        return false;
+    }
+
+    try {
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
 function initializeThemeToggle() {
     const toggle = document.getElementById("theme-toggle");
 
-    setTheme("light");
+    setTheme(loadThemePreference());
 
     if (!toggle) {
         return;
@@ -89,7 +113,8 @@ function initializeThemeToggle() {
         const nextTheme = document.documentElement.dataset.theme === "dark"
             ? "light"
             : "dark";
-        setTheme(nextTheme);
+        const selectedTheme = setTheme(nextTheme);
+        saveThemePreference(selectedTheme);
     });
 }
 
@@ -98,7 +123,9 @@ window.TaskDashboard = {
     calculateCompletionPercentage,
     updateCompletionProgress,
     updateTaskStatistics,
-    setTheme
+    setTheme,
+    loadThemePreference,
+    saveThemePreference
 };
 
 document.addEventListener("DOMContentLoaded", () => {
