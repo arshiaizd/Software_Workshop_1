@@ -37,8 +37,37 @@ function findTaskById(taskId) {
     return state.tasks.find((task) => task.id === taskId);
 }
 
+function validateTaskInput(title, deadline = "") {
+    const normalizedTitle = typeof title === "string" ? title.trim() : "";
+    const normalizedDeadline = typeof deadline === "string" ? deadline.trim() : "";
+    const errors = [];
+
+    if (!normalizedTitle) {
+        errors.push("Task title is required.");
+    } else if (normalizedTitle.length > 100) {
+        errors.push("Task title must not exceed 100 characters.");
+    }
+
+    if (normalizedDeadline && Number.isNaN(Date.parse(normalizedDeadline))) {
+        errors.push("Task deadline must be a valid date.");
+    }
+
+    return {
+        isValid: errors.length === 0,
+        errors,
+        title: normalizedTitle,
+        deadline: normalizedDeadline
+    };
+}
+
 function addTask(title, deadline = "") {
-    const task = createTask(title, deadline);
+    const validation = validateTaskInput(title, deadline);
+
+    if (!validation.isValid) {
+        throw new Error(validation.errors.join(" "));
+    }
+
+    const task = createTask(validation.title, validation.deadline);
     state.tasks.push(task);
     return task;
 }
@@ -92,6 +121,7 @@ window.TaskEngine = {
     getTasks,
     setTasks,
     findTaskById,
+    validateTaskInput,
     addTask,
     deleteTask,
     updateTask,
