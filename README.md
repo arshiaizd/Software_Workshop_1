@@ -220,18 +220,11 @@ python -m http.server 8000
 
 - پلتفرم: OpenAI ChatGPT
 - مدل: **GPT-5.6 Sol**
-- کاربردها: برنامه‌ریزی پروژه، راهنمایی گردش Git/GitHub، طراحی راهبرد branch و commit، راهنمایی Kanban، تولید promptهای ساختاریافته برای Codex، برنامه‌ریزی merge/conflict، تهیهٔ checklistهای verification و برنامه‌ریزی مستندات.
+- کاربردها: برنامه‌ریزی پروژه، راهنمایی گردش Git/GitHub، طراحی راهبرد branch و commit، راهنمایی Kanban، برنامه‌ریزی merge/conflict، تهیهٔ checklistهای verification و برنامه‌ریزی مستندات.
 
 ### OpenAI Codex CLI
 
 - ابزار: OpenAI Codex CLI
 - مدل تأییدشده از metadata همین session: **`gpt-5.6-sol`**
-- کاربردها: بررسی مخزن، پیاده‌سازی، کنترل status و history، ساخت commitهای کوچک و معنادار، یکپارچه‌سازی conflictها، اجرای گردش PR با `gh` و verification نهایی.
-
-فرایند تعامل چنین بود: ChatGPT promptهای مرحله‌ای و دقیق تولید کرد؛ promptها به Codex داده شدند؛ بعد از هر فاز پیاده‌سازی، یک checker prompt جداگانه و read-only اجرا شد که پاسخ‌های YES/NO و evidence ارائه می‌داد. فقط پس از موفقیت بررسی، کار به مرحلهٔ بعد رفت. این روش احتمال اشتباه در هویت Git، branch، remote و تاریخچه را کاهش داد.
-
-ضمیمهٔ promptهای نگهداری‌شده در [docs/AI_PROMPTS.md](docs/AI_PROMPTS.md) قرار دارد.
-
-## نتیجه‌گیری
-
-این پروژه تمرینی عملی برای تقسیم مسئولیت، توسعهٔ موازی با Git branch، commitهای کوچک، Code Review دوطرفه، Pull Request، حل conflict واقعی، Kanban و deployment خودکار بود. حفظ تاریخچهٔ هر دو عضو در دو conflict و سه PR نشان می‌دهد نسخهٔ نهایی حاصل همکاری قابل ردیابی است. ترکیب منطق برنامه، طراحی واکنش‌گرا، داشبورد، پوسته و GitHub Pages تجربه‌ای نزدیک به یک فرایند واقعی مهندسی نرم‌افزار ایجاد کرد.
+- کاربردها: بررسی مخزن، پیاده‌سازی، کنترل status و history، راهنمایی در ساخت commitهای کوچک و معنادار و verification نهایی.
+.
