@@ -15,10 +15,46 @@
             <p class="site-header__eyebrow">Student workspace</p>
             <h1>Study Task Planner</h1>
             <p class="site-header__subtitle">Plan assignments, track deadlines, and keep study sessions organized.</p>
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+                Switch to dark theme
+            </button>
         </div>
     </header>
 
     <main class="app-layout" id="main-content">
+        <section class="panel dashboard" aria-labelledby="dashboard-heading">
+            <header class="section-heading">
+                <h2 id="dashboard-heading">Task overview</h2>
+                <p>A summary of the tasks currently in your study plan.</p>
+            </header>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <h3>Total tasks</h3>
+                    <p class="stat-card__value" id="stats-total">0</p>
+                </article>
+                <article class="stat-card stat-card--pending">
+                    <h3>Pending</h3>
+                    <p class="stat-card__value" id="stats-pending">0</p>
+                </article>
+                <article class="stat-card stat-card--completed">
+                    <h3>Completed</h3>
+                    <p class="stat-card__value" id="stats-completed">0</p>
+                </article>
+            </div>
+
+            <section class="progress-card" aria-labelledby="progress-heading">
+                <div class="progress-card__heading">
+                    <div>
+                        <h3 id="progress-heading">Completion progress</h3>
+                        <p>Completed tasks as a percentage of your plan.</p>
+                    </div>
+                    <output id="progress-percentage" for="task-progress">0%</output>
+                </div>
+                <progress id="task-progress" value="0" max="100">0%</progress>
+            </section>
+        </section>
+
         <section class="panel task-entry" aria-labelledby="task-entry-heading">
             <header class="section-heading">
                 <h2 id="task-entry-heading">Add a study task</h2>
@@ -28,22 +64,13 @@
             <form class="task-form" id="task-form" novalidate>
                 <div class="form-field form-field--wide">
                     <label for="task-title">Task title</label>
-                    <input
-                        id="task-title"
-                        name="title"
-                        type="text"
-                        maxlength="100"
-                        placeholder="e.g. Review software testing notes"
-                        aria-describedby="form-error"
-                        required
-                    >
+                    <input id="task-title" name="title" type="text" maxlength="100"
+                        placeholder="e.g. Review software testing notes" aria-describedby="form-error" required>
                 </div>
-
                 <div class="form-field">
                     <label for="task-deadline">Deadline</label>
                     <input id="task-deadline" name="deadline" type="date">
                 </div>
-
                 <button class="button button--primary" type="submit">Add task</button>
                 <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
             </form>
@@ -60,7 +87,6 @@
                     <label for="task-search">Search tasks</label>
                     <input id="task-search" type="search" placeholder="Search by task title">
                 </div>
-
                 <div class="form-field">
                     <label for="status-filter">Status</label>
                     <select id="status-filter" name="status-filter">
@@ -69,7 +95,6 @@
                         <option value="completed">Completed</option>
                     </select>
                 </div>
-
                 <div class="form-field">
                     <label for="deadline-sort">Deadline order</label>
                     <select id="deadline-sort" name="deadline-sort">
@@ -79,7 +104,11 @@
                 </div>
             </div>
 
-            <p class="empty-state" id="empty-state">No tasks yet. Add your first study task above.</p>
+            <div class="empty-state" id="empty-state" role="status" aria-live="polite">
+                <div class="empty-state__icon" aria-hidden="true">&#10003;</div>
+                <h3>No tasks to show</h3>
+                <p>Add your first study task or adjust the current view controls.</p>
+            </div>
             <ul class="task-list" id="task-list" aria-live="polite"></ul>
 
             <template id="task-card-template">
@@ -89,34 +118,23 @@
                             <h3 class="task-card__title">Task title</h3>
                             <span class="task-card__status" data-task-status>Pending</span>
                         </div>
-                        <p class="task-card__deadline">
-                            <span>Deadline:</span>
-                            <time data-task-deadline>No deadline</time>
-                        </p>
+                        <p class="task-card__deadline"><span>Deadline:</span> <time data-task-deadline>No deadline</time></p>
                     </div>
-
                     <div class="task-card__actions" aria-label="Task actions">
-                        <button class="button button--secondary" type="button" data-action="toggle">
-                            Mark complete
-                        </button>
-                        <button class="button button--secondary" type="button" data-action="edit">
-                            Edit
-                        </button>
-                        <button class="button button--danger" type="button" data-action="delete">
-                            Delete
-                        </button>
+                        <button class="button button--secondary" type="button" data-action="toggle">Mark complete</button>
+                        <button class="button button--secondary" type="button" data-action="edit">Edit</button>
+                        <button class="button button--danger" type="button" data-action="delete">Delete</button>
                     </div>
                 </li>
             </template>
         </section>
     </main>
 
-    <footer class="site-footer">
-        <p>Study Task Planner</p>
-    </footer>
+    <footer class="site-footer"><p>Study Task Planner</p></footer>
 
     <script src="js/storage.js"></script>
     <script src="js/task-engine.js"></script>
+    <script src="js/dashboard.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

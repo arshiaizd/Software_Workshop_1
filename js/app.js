@@ -106,6 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
         tasks.forEach((task) => {
             elements.taskList.append(createTaskElement(task));
         });
+
+        if (window.TaskDashboard) {
+            window.TaskDashboard.updateTaskStatistics(engine.getTasks());
+        }
     }
 
     function persistAndRender() {
