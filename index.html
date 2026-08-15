@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
     <header class="site-header">
         <div class="site-header__content">
             <p class="site-header__eyebrow">Student workspace</p>
@@ -16,7 +18,7 @@
         </div>
     </header>
 
-    <main class="app-layout">
+    <main class="app-layout" id="main-content">
         <section class="panel task-entry" aria-labelledby="task-entry-heading">
             <header class="section-heading">
                 <h2 id="task-entry-heading">Add a study task</h2>
@@ -32,6 +34,7 @@
                         type="text"
                         maxlength="100"
                         placeholder="e.g. Review software testing notes"
+                        aria-describedby="form-error"
                         required
                     >
                 </div>
