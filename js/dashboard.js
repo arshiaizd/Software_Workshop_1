@@ -54,12 +54,6 @@ function updateTaskStatistics(tasks = []) {
     setTextContent("stats-completed", statistics.completed);
     updateCompletionProgress(statistics);
 
-    const emptyState = document.getElementById("empty-state");
-
-    if (emptyState) {
-        emptyState.hidden = statistics.total > 0;
-    }
-
     return statistics;
 }
 
@@ -130,5 +124,4 @@ window.TaskDashboard = {
 
 document.addEventListener("DOMContentLoaded", () => {
     initializeThemeToggle();
-    updateTaskStatistics([]);
 });
