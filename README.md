@@ -113,7 +113,9 @@ Ready → In Progress → Review → Done
 - پیام: `fix: resolve task engine and responsive UI conflict`
 - فایل دارای conflict اثبات‌شده: `index.html`
 
-Arshia و Amin ساختار مرورگر و رابط را به‌صورت مستقل توسعه داده بودند. پس از ادغام PR موتور وظایف در `main`، جدیدترین `main` در شاخهٔ رابط واکنش‌گرای Amin merge شد. به دلیل تغییر مستقل `index.html`، Git یک conflict واقعی گزارش کرد.
+Arshia و Amin ساختار مرورگر و رابط را به‌صورت مستقل توسعه داده بودند
+. پس از ادغام PR موتور وظایف در `main`، جدیدترین `main` در شاخهٔ رابط واکنش‌گرای Amin merge شد.
+به دلیل تغییر مستقل `index.html`، Git یک conflict واقعی گزارش کرد.
 
 در حل conflict، ساختار معنایی و واکنش‌گرای Amin به‌عنوان پایهٔ بصری حفظ شد و هم‌زمان IDها، hookها و ترتیب scriptهای موردنیاز `js/app.js` متعلق به کار Arshia باقی ماند. `js/app.js` هنگام یکپارچه‌سازی تنظیم شد، اما تاریخچهٔ Git آن را به‌عنوان فایل conflicted اثبات نمی‌کند. هر دو تاریخچه با یک merge دووالدی حفظ شدند.
 
