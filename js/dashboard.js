@@ -61,13 +61,47 @@ function updateTaskStatistics(tasks = []) {
     return statistics;
 }
 
+function setTheme(theme) {
+    const selectedTheme = theme === "dark" ? "dark" : "light";
+    const toggle = document.getElementById("theme-toggle");
+
+    document.documentElement.dataset.theme = selectedTheme;
+
+    if (toggle) {
+        const isDark = selectedTheme === "dark";
+        toggle.setAttribute("aria-pressed", String(isDark));
+        toggle.textContent = isDark ? "Switch to light theme" : "Switch to dark theme";
+    }
+
+    return selectedTheme;
+}
+
+function initializeThemeToggle() {
+    const toggle = document.getElementById("theme-toggle");
+
+    setTheme("light");
+
+    if (!toggle) {
+        return;
+    }
+
+    toggle.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark"
+            ? "light"
+            : "dark";
+        setTheme(nextTheme);
+    });
+}
+
 window.TaskDashboard = {
     calculateTaskStatistics,
     calculateCompletionPercentage,
     updateCompletionProgress,
-    updateTaskStatistics
+    updateTaskStatistics,
+    setTheme
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+    initializeThemeToggle();
     updateTaskStatistics([]);
 });
