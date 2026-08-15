@@ -75,6 +75,36 @@
                     </select>
                 </div>
             </div>
+
+            <p class="empty-state" id="empty-state">No tasks yet. Add your first study task above.</p>
+            <ul class="task-list" id="task-list" aria-live="polite"></ul>
+
+            <template id="task-card-template">
+                <li class="task-card task-card--pending">
+                    <div class="task-card__content">
+                        <div class="task-card__heading">
+                            <h3 class="task-card__title">Task title</h3>
+                            <span class="task-card__status" data-task-status>Pending</span>
+                        </div>
+                        <p class="task-card__deadline">
+                            <span>Deadline:</span>
+                            <time data-task-deadline>No deadline</time>
+                        </p>
+                    </div>
+
+                    <div class="task-card__actions" aria-label="Task actions">
+                        <button class="button button--secondary" type="button" data-action="toggle">
+                            Mark complete
+                        </button>
+                        <button class="button button--secondary" type="button" data-action="edit">
+                            Edit
+                        </button>
+                        <button class="button button--danger" type="button" data-action="delete">
+                            Delete
+                        </button>
+                    </div>
+                </li>
+            </template>
         </section>
     </main>
 
